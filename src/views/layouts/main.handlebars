@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{!-- <link rel="stylesheet" href="../../public/style/main.css"> --}}
+  <title>{{title}}</title>
+  <style>
+    body{
+    background-color: rgb(216, 119, 216);
+      margin: 0;
+      padding: 16px;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+    h2{
+      background-color: rgba(223, 172, 229, 0.306);
+      text-align: center;
+      margin: 10px;
+      padding: 16px;
+    }
+    h3{
+      text-align: center;
+      margin: 10px;
+      padding: 16px;
+    }
+    li{
+      text-align: center;
+    }
+    a{
+      text-align: center;
+      border: solid;
+      margin: 2px;
+      padding: 2px;
+      border-radius: 9%;
+    }
+    a:hover{
+  cursor: pointer;
+}
+div.a{
+  text-align: center;
+}
+    div.lista{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+    .item{
+      background-color: rgb(220, 125, 241);
+      border-radius: 1rem;
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    div.formsContainer{
+      background-color: blueviolet;
+      display: flex;
+      flex-direction: row;
+      margin: 2rem;
+      padding: 1rem;
+    }
+    .formsContaine,form{
+      background-color: rgb(255, 0, 234);
+      margin: 1rem;
+      padding: 1rem;
+      width:auto
+      text-align: center;
+    }
+    form.deleteForm{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    .deleteForm button{
+      width: 10rem;
+    }
+    input{
+      padding: .5rem;
+      margin: .5rem;
+      border: none;
+      border-radius: 1rem;
+    }
+    button{
+      padding: .8rem;
+      border-radius: 1rem;
+      border: none;
+    }
+    button:hover{
+      cursor: pointer;
+    }
+  </style>
+  {{!-- <link rel="stylesheet" href="/ServidorWeb/src/public/img/css/{{style}}"> --}}
+  
+</head>
+<body>
+  {{{body}}}
+</body>
+</html>

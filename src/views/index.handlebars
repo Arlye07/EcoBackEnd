@@ -1,0 +1,29 @@
+{{!-- <h1>Hola {{user.name}} </h1>
+<p>Tu eres {{user.role}} </p>
+
+<br>
+<br>
+
+{{#if role}}
+{{#each userInfo}}
+<h2>Hola {{this.name}}</h2>
+<p>como estas? todo bien?</p>
+<p>Eres estudienate de {{this.course}} </p>
+{{/each}}
+{{/if}}  --}}
+
+
+<h3>Products</h3>
+<div class="lista">
+  {{#each products}}
+    <div class="item">
+      <h3>{{this.title}}</h3>
+      <p>{{this.description}}</p>
+      <p>${{this.price}}</p>
+      <img src={{this.thumbnail}} alt="">
+    </div>
+  {{/each}}
+</div>
+{{!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" ></script> --}}
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
