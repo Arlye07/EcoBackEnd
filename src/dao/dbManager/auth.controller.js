@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const Users = require("../models/users.models");
+const Users = require("../../models/users.models");
 const publicAccess = require("../../middlewares/publicAccess");
 const { isValidPassword } = require("../../utils/cryptPassport.utils");
 const passport = require("passport");
@@ -63,6 +63,20 @@ router.get(
     res.redirect("/api/dbProducts");
   }
 );
+// router.get(
+//   '/google',
+//   passport.authenticate('google', { scope: ['profile', 'email'] }),
+//   async (req, res) => {}
+// )
+
+// router.get(
+//   '/googlecallback',
+//   passport.authenticate('google', { failureRedirect: '/login' }),
+//   async (req, res) => {
+//     req.session.user = req.user
+//     res.redirect('/')
+//   }
+// )
 
 router.get("/logout", (req, res) => {
   req.session.destroy((error) => {

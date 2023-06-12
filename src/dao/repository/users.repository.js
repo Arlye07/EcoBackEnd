@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt')
-const Users = require('../models/users.models')
-const Cart = require('../models/carts.models')
+const Users = require('../../models/users.models')
+const Cart = require('../../models/carts.models')
 const { admin_email, admin_password } = require('../../config/superAdmin')
 
-async function usersCreate(userInfo){
-
-	try {
+class UserRepository{
+    async createUser(userInfo){
+       try {
 		const {first_name,last_name,email,age,password} = userInfo
 
     // Verificar si el usuario es admin y lo clasifica
@@ -35,10 +35,11 @@ async function usersCreate(userInfo){
     //Crear un nuevo usuario con su respectiva info y rol
     const user = await Users.create(newUserInfo)
 		return user
-	} catch (error) {
-		return error
-	}
+        
+       } catch (error) {
+        throw error
+       }
+
+    }
 }
-
-
-module.exports = {usersCreate}
+module.exports = UserRepository

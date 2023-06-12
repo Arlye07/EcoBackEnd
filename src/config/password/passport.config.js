@@ -1,10 +1,11 @@
 const passport = require('passport')
 const local = require('passport-local')
-const Users = require('../../dao/models/users.models')
+const Users = require('../../models/users.models')
 const GithubStrategy = require('passport-github2')
+const GoogleStrategy = require('passport-google-oauth20')
 const { hashPassword } = require('../../utils/cryptPassport.utils')
 const { isValidPassword } = require('../../utils/cryptPassport.utils')
-const { usersCreate } = require('../../dao/dbDao/users.dao')
+const { usersCreate } = require('../../dao/users.dao')
 
 const LocalStrategy = local.Strategy
 
@@ -93,6 +94,42 @@ const initializePassport = () => {
       }
     )
   )
+
+  // passport.use(
+  //   'google',
+  //   new GoogleStrategy(
+  //     {
+  //       clientID:
+  //         '944513063716-ubtf2qhfg0qi2r1f2on6v7t0euntuom5.apps.googleusercontent.com',
+  //       clientSecret: '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',
+  //       callbackURL: 'http://localhost:8080/api/login/googlecallback',
+  //     },
+  //     async (accessToken, refreshToken, profile, done) => {
+  //       try {
+  //         console.log(profile)
+
+  //         const user = await Users.findOne({ googleId: profile._json.sub })
+
+  //         if (!user) {
+  //           const newUserInfo = {
+  //             googleId: profile._json.sub,
+  //             first_name: profile._json.given_name,
+  //             last_name: profile._json.family_name,
+  //             age: 18,
+  //             email: profile._json.email,
+  //             password: '',
+  //           }
+  //           const newUser = await Users.create(newUserInfo)
+  //           return done(null, newUser)
+  //         }
+
+  //         done(null, user)
+  //       } catch (error) {
+  //         done(error)
+  //       }
+  //     }
+  //   )
+  // )
 
   passport.serializeUser((newUser, done) => {
     done(null, newUser.id)

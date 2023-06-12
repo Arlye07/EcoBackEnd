@@ -1,8 +1,8 @@
 const {Router}= require('express')
 const router = Router()
 const mongoose = require('mongoose')
-const Cart = require('../models/carts.models')
-const Products = require('../models/products.models')
+const Cart = require('../../models/carts.models')
+const Products = require('../../models/products.models')
 
 router.get('/', async (req, res) => {
   try {
@@ -24,6 +24,7 @@ router.post('/:cartId/:productId', async (req, res) => {
     if (!product) throw new Error('Product not found');
 
     const itemIndex = cart.productos.findIndex(item => item.product._id.toString() === req.params.productId);
+    //console.log(itemIndex);
     if (itemIndex !== -1) {
       cart.productos[itemIndex].quantity += 1;
     } else {

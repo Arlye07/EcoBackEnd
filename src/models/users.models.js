@@ -11,6 +11,7 @@ const collectionSchema = new mongoose.Schema({
   },
   age: Number,
   password: String, 
+  googleId: String,
   cartId: String,
   role: {
     type: String,

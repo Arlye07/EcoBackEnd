@@ -1,8 +1,9 @@
 const {Router}= require('express')
-const Products = require('../models/products.models')
+const Products = require('../../models/products.models')
 const mongoosePaginate =require ('mongoose-paginate-v2')
-const Cart = require ('../models/carts.models')
+const Cart = require ('../../models/carts.models')
 const privateAccess = require('../../middlewares/privateAccess')
+const adminAccess = require ('../../middlewares/adminAcces.middleware')
 const router = Router()
 
 router.get('/', privateAccess, async (req, res) => {
@@ -53,6 +54,7 @@ router.get('/', privateAccess, async (req, res) => {
       : null;
 
     const user = req.session.user;
+    //console.log(user);
     const message = user
       ? `Bienvenido ${user.role} ${user.first_name} ${user.last_name}!`
       : null;
@@ -85,7 +87,7 @@ router.get('/', privateAccess, async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/', adminAccess, async (req, res) => {
   try {
     const productInfo = req.body
     const newProduct = await Products.create(productInfo)
@@ -95,7 +97,7 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.put('/:productId', async (req, res) => {
+router.put('/:productId', adminAccess, async (req, res) => {
   try {
     const updatedProduct = await Products.findByIdAndUpdate(req.params.productId, req.body, { new: true })
     res.json({ message: 'Product updated successfully', product: updatedProduct })
@@ -105,7 +107,7 @@ router.put('/:productId', async (req, res) => {
   }
 })
 
-router.delete('/:productId', async (req, res) => {
+router.delete('/:productId', adminAccess, async (req, res) => {
   try {
     const deletedProduct = await Products.findByIdAndDelete(req.params.productId)
     res.json({message: `Product with ID ${req.params.productId} has been deleted`})

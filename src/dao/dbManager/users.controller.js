@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const Users = require('../models/users.models')
+const Users = require('../../models/users.models')
 const { hashPassword } = require('../../utils/cryptPassport.utils')
 const passport= require ('passport')
 const router = Router()
