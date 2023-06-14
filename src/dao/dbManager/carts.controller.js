@@ -1,8 +1,12 @@
 const {Router}= require('express')
-const router = Router()
 const mongoose = require('mongoose')
 const Cart = require('../../models/carts.models')
 const Products = require('../../models/products.models')
+const userAcces = require('../../middlewares/userAcces.middleword')
+const checkDataTicket = require('../tickets.dao')
+const uuid = require('uuid')
+const router = Router()
+
 
 router.get('/', async (req, res) => {
   try {
@@ -23,7 +27,7 @@ router.post('/:cartId/:productId', async (req, res) => {
     const product = await Products.findOne({_id: req.params.productId});
     if (!product) throw new Error('Product not found');
 
-    const itemIndex = cart.productos.findIndex(item => item.product._id.toString() === req.params.productId);
+    const itemIndex = cart.productos.findIndex(item => item.product._id.equals(product._id));
     //console.log(itemIndex);
     if (itemIndex !== -1) {
       cart.productos[itemIndex].quantity += 1;
@@ -110,5 +114,31 @@ router.get('/:cid', async (req, res) => {
     }
   });
 
+// Carrito final cerrar compra
+
+router.get('/:cid/purchase',userAcces , async (req, res) => {
+  try {
+    const cartId = req.params.cid
+    const cart = await Cart.findById(cartId)
+    const userEmail = req.user.email
+    const code = uuid.v4()
+
+    const purchaseData = await checkDataTicket(code, userEmail, cart)
+    console.log(purchaseData)
+
+    const ticket = purchaseData.ticket
+    const unprocessedProducts = purchaseData.unprocessedProducts
+
+    if(unprocessedProducts.length > 0){
+      res.json({"Productos sin stock": unprocessedProducts,
+                "Productos comprados y tickets": ticket})
+    }else{
+      res.json({"thank for build": ticket})
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error in tickets' });
+  }
+})
 
 module.exports = router

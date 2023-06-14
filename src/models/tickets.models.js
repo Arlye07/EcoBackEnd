@@ -1,26 +1,15 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 
-const ticketSchema = new Schema({
-  Id: {
-    type: Schema.Types.ObjectId,
-    auto: true
-  },
-  code: {
-    type: String,
-    unique: true
-  },
-  purchase_datetime: {
-    type: Date,
-    default: Date.now
-  },
-  amount: {
-    type: Number
-  },
-  purchaser: {
-    type: String
-  }
-});
+const collectionName = 'tickets'
 
-const Ticket = mongoose.model('Ticket', ticketSchema);
-module.exports = Ticket;
+const collectionSchema = new mongoose.Schema({
+  code: {type: String, unique: true},
+  purchase_datetime: {type: Date, default: Date.now},
+  amount: Number,
+  purchaser: String,
+  processProducts: Array
+})
+
+const Tickets = mongoose.model(collectionName, collectionSchema)
+
+module.exports = Tickets
