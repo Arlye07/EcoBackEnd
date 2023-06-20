@@ -10,14 +10,17 @@ const collectionSchema = new mongoose.Schema({
     unique: true,
   },
   age: Number,
-  password: String, 
-  googleId: String,
-  cartId: String,
+  password: String,
+  cartId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Cart',
+  },
   role: {
     type: String,
     enum: ['administrador', 'usuario'],
     default: 'usuario',
-  },
+  }
+
 })
 
 const Users = mongoose.model(collectionName, collectionSchema)

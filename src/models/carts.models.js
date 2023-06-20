@@ -13,7 +13,6 @@ const collectionSchema = new mongoose.Schema({
       default: 1
     }
   }]
-  
 })
 
 const Cart = mongoose.model(collectionName, collectionSchema)

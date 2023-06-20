@@ -4,8 +4,9 @@ const Cart = require('../../models/carts.models')
 const Products = require('../../models/products.models')
 const userAcces = require('../../middlewares/userAcces.middleword')
 const checkDataTicket = require('../tickets.dao')
+const saveProductInCar = require('../carts.dao')
 const uuid = require('uuid')
-const router = Router()
+const router = Router()  
 
 
 router.get('/', async (req, res) => {
@@ -103,10 +104,11 @@ router.delete('/:cid', async (req, res) => {
   }
 });
 
-// GET /:cid
-router.get('/:cid', async (req, res) => {
+// GET /:CID
+router.get('/:cid', userAcces, async (req, res) => {
   try {
-      const cart = await Cart.findById(req.params.cid).populate('productos.product');
+      const cart = await Cart.findById(req.params.cid);
+      console.log(cart);
       res.status(200).render('carts.handlebars', {cart});
     } catch (error) {
       console.log(error);
@@ -115,7 +117,6 @@ router.get('/:cid', async (req, res) => {
   });
 
 // Carrito final cerrar compra
-
 router.get('/:cid/purchase',userAcces , async (req, res) => {
   try {
     const cartId = req.params.cid
@@ -130,7 +131,7 @@ router.get('/:cid/purchase',userAcces , async (req, res) => {
     const unprocessedProducts = purchaseData.unprocessedProducts
 
     if(unprocessedProducts.length > 0){
-      res.json({"Productos sin stock": unprocessedProducts,
+      res.json({"whith out stock": unprocessedProducts,
                 "Productos comprados y tickets": ticket})
     }else{
       res.json({"thank for build": ticket})

@@ -48,8 +48,8 @@ class TicketsRepository{
     const productQuantity = item.quantity
 
 
-    try {
-      const product = await Products.findById(productId);
+    try { console.log(productId);
+      const product = await Products.findById(productId)
   
       if (productQuantity <= product.stock) {
         product.stock -= productQuantity;
