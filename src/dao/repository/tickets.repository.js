@@ -1,12 +1,13 @@
 const Tickets = require('../../models/tickets.models')
 const Products = require('../../models/products.models')
+const ErrorRepository = require('./errors.repository')
 
 
 class TicketsRepository{
 
   async processDataTicket(code, userEmail, cart) {
 
-
+  try {
     const processedProducts = []
     const unprocessedProducts = []
     let totalAmount = 0
@@ -21,6 +22,8 @@ class TicketsRepository{
         const productQuantity = item.quantity;
         const productTotalPrice = product.price * productQuantity;
         totalAmount += productTotalPrice;
+      }else{
+        throw new ErrorRepository('No se encontraron productos', 404, error)
       }
     }
 
@@ -41,6 +44,14 @@ class TicketsRepository{
       ticket: ticket,
       unprocessedProducts: unprocessedProducts
     }
+    
+    
+  } catch  (error) { 
+    throw (new ErrorRepository('Error al cargar el Tickets',500))
+    
+  }
+
+    
   }
 
   async processItem(item, processedProducts, unprocessedProducts) {
@@ -61,6 +72,7 @@ class TicketsRepository{
       }
     } catch (error) {
      console.error(error);
+     throw new ErrorRepository('El item no fue procesado', 500)
     } 
   }
 }

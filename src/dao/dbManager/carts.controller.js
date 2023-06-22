@@ -6,50 +6,40 @@ const userAcces = require('../../middlewares/userAcces.middleword')
 const checkDataTicket = require('../tickets.dao')
 const saveProductInCar = require('../carts.dao')
 const uuid = require('uuid')
+const ErrorRepository = require('../repository/errors.repository')
 const router = Router()  
 
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const newCart = await Cart.create({})
     console.log('Nuevo carrito creado:', newCart)
     res.status(201).json(newCart)
   } catch (err) {
     console.error(err)
-    res.status(500).json({ error: 'Error' })
+    next(new ErrorRepository('error',500))
   }
 })
 
 
 //POST agrega un producto en un carrito
-router.post('/:cartId/:productId', async (req, res) => {
+router.post('/:cartId/:productId', async (req, res, next) => {
   try {
+    
     const cart = await Cart.findOne({ _id: req.params.cartId });
     const product = await Products.findOne({_id: req.params.productId});
-    if (!product) throw new Error('Product not found');
+    await saveProductInCar(cart, product)
+    res.status(200).redirect(req.header('Referer'))
 
-    const itemIndex = cart.productos.findIndex(item => item.product._id.equals(product._id));
-    //console.log(itemIndex);
-    if (itemIndex !== -1) {
-      cart.productos[itemIndex].quantity += 1;
-    } else {
-      cart.productos.push({
-        product: req.params.productId,
-        quantity: 1
-      });
-    }
-
-    await cart.save();
-    res.json({ message: 'Product added to cart', cart });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Error adding product to cart' });
+    next(error)
   }
 });
 
 
 // DELETE el producto del carrito elegido
-router.delete('/:cid/products/:pid', async (req, res) => {
+router.delete('/:cid/products/:pid', async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ _id: req.params.cid });
     const productIndex = cart.productos.findIndex(item => item.product.equals(new mongoose.Types.ObjectId(req.params.pid)));
@@ -59,12 +49,12 @@ router.delete('/:cid/products/:pid', async (req, res) => {
     res.json({ message: 'Product removed from cart', cart });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Error removing product from cart' });
+    next(new ErrorRepository('error',500))
   }
 });
 
 // PUT  va a actualiza el carrito con un arreglo de productos
-router.put('/:cid', async (req, res) => {
+router.put('/:cid', async (req, res, next) => {
   try {
     const cart = await Cart.findById(req.params.cid);
     cart.productos = req.body.productos;
@@ -72,7 +62,7 @@ router.put('/:cid', async (req, res) => {
     res.json({ message: 'Cart updated', cart });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Error updating cart' });
+   next(new ErrorRepository('error',500))
   }
 });
 
@@ -87,12 +77,12 @@ router.put('/:cid/products/:pid', async (req, res) => {
     res.json({ message: 'Cart updated', cart });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Error updating cart' });
+    next(new ErrorRepository('ERROR',500))
   }
 });
 
 // DELETE api/carts/:cid va a eliminar los productos del carrito
-router.delete('/:cid', async (req, res) => {
+router.delete('/:cid', async (req, res, next) => {
   try {
     const cart = await Cart.findById(req.params.cid);
     cart.productos = [];
@@ -100,24 +90,24 @@ router.delete('/:cid', async (req, res) => {
     res.json({ message: 'All products removed from cart', cart });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Error removing products from cart' });
+    next(new ErrorRepository('error',500))
   }
 });
 
 // GET /:CID
-router.get('/:cid', userAcces, async (req, res) => {
+router.get('/:cid', userAcces, async (req, res, next) => {
   try {
       const cart = await Cart.findById(req.params.cid);
       console.log(cart);
       res.status(200).render('carts.handlebars', {cart});
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: 'Error getting cart' });
+      next(new ErrorRepository('error',500))
     }
   });
 
 // Carrito final cerrar compra
-router.get('/:cid/purchase',userAcces , async (req, res) => {
+router.get('/:cid/purchase',userAcces , async (req, res, next) => {
   try {
     const cartId = req.params.cid
     const cart = await Cart.findById(cartId)
@@ -138,7 +128,7 @@ router.get('/:cid/purchase',userAcces , async (req, res) => {
     }
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: 'Error in tickets' });
+   next(new ErrorRepository('error desde cart controller ',500))
   }
 })
 

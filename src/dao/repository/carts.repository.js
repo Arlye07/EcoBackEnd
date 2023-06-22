@@ -1,4 +1,5 @@
-const Tickets = require('../../models/tickets.models')
+const Tickets = require('../../models/tickets.models');
+const ErrorRepository = require('./errors.repository');
 
 
 class CartsRepository {
@@ -19,7 +20,7 @@ class CartsRepository {
       }
       await cart.save();
     } catch (error) {
-      throw error
+      throw new ErrorRepository('Error ', 500)
     }
   }
 

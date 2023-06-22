@@ -1,4 +1,5 @@
 const express = require("express");
+const compression = require("express-compression")
 const cookieParser = require('cookie-parser')
 const port = 8080;
 const app = express();
@@ -7,7 +8,7 @@ const mongoConnect = require('../db/index')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const passport = require ('passport')
-const initializePassport =require('./config/password/passport.config')
+const initializePassport =require('./config/passport/passport.config')
 const Message = require('./models/message.models')
 const router = require('./routes/index')
 
@@ -16,6 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cookieParser());
+app.use(compression({
+  brotli:{enable: true, zlib:{},}
+}))
 const{dbAdmin,dbPassword,dbHost,dbName}= require('./config/db.config')
 app.use(
   session({
