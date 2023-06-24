@@ -1,8 +1,9 @@
+const ErrorRepository = require("../dao/repository/errors.repository")
 function adminAccess(req,res,next){
     if(req.user.role === 'administrador'){
         next()
     }else{ 
-    res.status(401).json({error: 'No tienes acceso como Administrador'}) }
+        next(new ErrorRepository(401)) }
 }
 
 module.exports = adminAccess

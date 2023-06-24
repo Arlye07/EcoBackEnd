@@ -128,7 +128,7 @@ router.get('/:cid/purchase',userAcces , async (req, res, next) => {
     }
   } catch (error) {
     console.error(error)
-   next(new ErrorRepository('error desde cart controller ',500))
+   next(error)
   }
 })
 

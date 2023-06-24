@@ -4,6 +4,8 @@ const mongoosePaginate =require ('mongoose-paginate-v2')
 const Cart = require ('../../models/carts.models')
 const privateAccess = require('../../middlewares/privateAccess')
 const adminAccess = require ('../../middlewares/adminAcces.middleware')
+const ProductsRepository = require('../repository/products.repository')
+const userAcces = require('../../middlewares/userAcces.middleword')
 const router = Router()
 
 router.get('/', privateAccess, async (req, res) => {
@@ -117,6 +119,14 @@ router.delete('/:productId', adminAccess, async (req, res) => {
   }
 })
 
-
+router.get('/mockingProducts',userAcces, async (req, res, next) => {
+  try {
+    const productsRepository = new ProductsRepository()
+    const mockProducts = await productsRepository.mockProducts()
+    res.json({Productos: mockProducts})
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = router

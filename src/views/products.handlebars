@@ -19,6 +19,8 @@
     <p>{{description}}</p>
     <p>Price: {{price}}</p>
     <p>Category: {{category}}</p>
+    <img src="{{image.url}}" alt="Imagen">
+
     {{#if ../cartId}}
     <form method="POST" action="/api/dbCarts/{{../cartId}}/{{this._id}}">
       <input type="hidden" name="product_id" value="{{_id}}">

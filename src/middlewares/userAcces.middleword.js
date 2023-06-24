@@ -1,8 +1,10 @@
+const ErrorRepository = require("../dao/repository/errors.repository")
+
 function userAcces (req, res,  next) {
     if(req.user.role === 'usuario'){ 
     next()
 }else{
-    res.status(401).json({error:'No tienes permiso de usuario'})
+    next(new ErrorRepository(401))
 } }
 
 module.exports = userAcces
