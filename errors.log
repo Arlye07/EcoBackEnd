@@ -1,0 +1,14 @@
+{"level":"info","message":"GET /api/loggerTest","timestamp":"2023-06-25T21:43:42.675Z"}
+{"level":"info","message":"GET /api/loggerTest","timestamp":"2023-06-25T21:44:29.322Z"}
+{"level":"info","message":"GET /api/loggerTest","timestamp":"2023-06-25T21:45:32.279Z"}
+{"level":"info","message":"GET /api/loggerTest","timestamp":"2023-06-25T21:46:17.143Z"}
+{"level":"info","message":"GET /api/loggerTest","timestamp":"2023-06-25T21:47:49.490Z"}
+{"level":"debug","message":"Mensaje de prueba - Debug","timestamp":"2023-06-25T21:47:49.702Z"}
+{"level":"info","message":"Mensaje de prueba - Info","timestamp":"2023-06-25T21:47:49.703Z"}
+{"level":"warning","message":"Mensaje de prueba - Warning","timestamp":"2023-06-25T21:47:49.703Z"}
+{"level":"error","message":"Mensaje de prueba - Error","timestamp":"2023-06-25T21:47:49.703Z"}
+{"level":"info","message":"GET /api/loggerTest","timestamp":"2023-06-25T21:48:41.835Z"}
+{"level":"debug","message":"Mensaje de prueba - Debug","timestamp":"2023-06-25T21:48:42.108Z"}
+{"level":"info","message":"Mensaje de prueba - Info","timestamp":"2023-06-25T21:48:42.108Z"}
+{"level":"warning","message":"Mensaje de prueba - Warning","timestamp":"2023-06-25T21:48:42.110Z"}
+{"level":"error","message":"Mensaje de prueba - Error","timestamp":"2023-06-25T21:48:42.111Z"}

@@ -29,4 +29,5 @@ router.post('/',passport.authenticate('register', { failureRedirect: 'register/f
   next(new ErrorRepository('error',500))
   })
 
+
 module.exports = router

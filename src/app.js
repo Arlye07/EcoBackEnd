@@ -10,13 +10,19 @@ const MongoStore = require('connect-mongo')
 const passport = require ('passport')
 const initializePassport =require('./config/passport/passport.config')
 const Message = require('./models/message.models')
+const logger = require('./config/logger.config')
 const router = require('./routes/index')
+
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cookieParser());
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.url}`)
+  next()
+})
 app.use(compression({
   brotli:{enable: true, zlib:{},}
 }))
@@ -37,6 +43,7 @@ app.use(
 initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
+
 //parametros handlebars
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const handlebars = require('express-handlebars');
@@ -51,9 +58,6 @@ app.set('view engine','handlebars')
 mongoConnect ()
 router(app)
 
-// app.listen(port, async() => { 
-//    console.log(`Server listening on ${port}`);
-// });
 
 const httpServer = app.listen(port, async() => { 
   console.log(`Server listening on ${port}`);

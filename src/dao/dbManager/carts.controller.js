@@ -102,7 +102,7 @@ router.get('/:cid', userAcces, async (req, res, next) => {
       res.status(200).render('carts.handlebars', {cart});
     } catch (error) {
       console.log(error);
-      next(new ErrorRepository('error',500))
+      next(new ErrorRepository('error al iniciar el carrito',500))
     }
   });
 

@@ -5,7 +5,7 @@ const authController= require("../dao/dbManager/auth.controller")
 const currentSession = require("../dao/dbManager/sessions.controller")
 const messageController = require("../dao/dbManager/messages.controller")
 const ErrorRepository = require("../dao/repository/errors.repository")
-
+const loggerTest = require('../dao/dbManager/test.controller')
 
 const errorHandler = (err, req, res, next) => {
   if (err instanceof ErrorRepository) {
@@ -25,6 +25,7 @@ const router = app => {
   app.use('/api/login', authController);
   app.use('/api/sessions/current', currentSession);
   app.use('/api/messages', messageController);
+  app.use('/api/loggerTest', loggerTest ); 
   app.use(errorHandler)
 }
 
