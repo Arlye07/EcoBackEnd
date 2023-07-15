@@ -10,7 +10,12 @@ const collectionSchema = new mongoose.Schema({
   code: String,
   category: String,
   status: Boolean,
-  img: String
+  img: String,
+  owner: {
+    type: String,
+    default: 'administrador',
+    trim: true
+  }
 })
 
 collectionSchema.plugin(mongoosePaginate)

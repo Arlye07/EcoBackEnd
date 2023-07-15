@@ -1,0 +1,51 @@
+openapi: "3.0.1"
+info:
+  title: API Products
+  version: "1.0"
+paths:
+  /api/dbCarts/{cid}:
+    get:
+      summary: Obtiene el carrito del usuario con los productos agregados
+      tags:
+        - Carts
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: id del carrito enlazado con el usuario
+      responses:
+        "200":
+          description: Carrito obtenido con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                carts:
+                  $ref: "#/components/schemas/Cart"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbiden
+        "500":
+          description: Internal Server Error
+
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        productos:
+          type: array
+          description: Productos que el usuario agregó al carrito
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: ID del producto
+              quantity:
+                type: number
+                description: Número de unidades del producto (por defecto es 1)

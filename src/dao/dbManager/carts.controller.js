@@ -23,11 +23,15 @@ router.get('/', async (req, res, next) => {
 
 
 //POST agrega un producto en un carrito
-router.post('/:cartId/:productId', async (req, res, next) => {
+router.post('/:cartId/:productId',userAcces, async (req, res, next) => {
   try {
     
     const cart = await Cart.findOne({ _id: req.params.cartId });
     const product = await Products.findOne({_id: req.params.productId});
+    const user = req.session.user
+    if (user.role === 'premium' && product.owner !== 'premium') {
+      return new ErrorRepository('No tienes permiso para agregar este producto', 401)
+    }
     await saveProductInCar(cart, product)
     res.status(200).redirect(req.header('Referer'))
 

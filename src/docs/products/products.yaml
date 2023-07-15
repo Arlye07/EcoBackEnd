@@ -1,0 +1,58 @@
+openapi: "3.0.1"
+info:
+  title: API Products
+  version: "1.0"
+paths:
+  /api/dbProducts:
+    get:
+      summary: Obtiene una lista de todos los productos disponibles segun los fiiltros del usuario.
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Productos obtenidos con exito.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+
+
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: id de mongo
+        name:
+          type: string
+          description: nombre del producto
+        description:
+          type: string
+          description: descripcion del producto
+        price:
+          type: number
+          description: precio base del producto
+        stock:
+          type: number
+          description: cantidad de unidades disponibles del producto
+        code:
+          type: string
+          description: codigo general del producto
+        category:
+          type: string
+          description: categoria a la cual pertenece el producto
+        status:
+          type: boolean
+          description: estado de disponibilidad del producto
+        img:
+          type: string
+          description: url de la imagen descriptiva del producto
+        owner:
+          type: string
+          description: rol del usuario que creo el producto
