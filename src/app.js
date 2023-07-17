@@ -46,7 +46,7 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.1',
     info: {
-      title: "Documentacion to AdoptMe 💼",
+      title: "Documentacion to AdoptMe!!! 🎁",
       description: "Endpoints to Manager Products"
     }
   },
@@ -54,8 +54,6 @@ const swaggerOptions = {
 }
 
 const swaggerSpecs = swaggerJSDoc(swaggerOptions)
-
-
 
 app.use('/api-docs', swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerSpecs))
 
