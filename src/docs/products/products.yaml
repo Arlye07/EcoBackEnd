@@ -16,7 +16,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ProductList"
+                  $ref: "#/components/schemas/Product"
   '/':
     get:
       summary: Obtiene una lista de productos.
@@ -69,7 +69,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProductInput'
+              $ref: '#/components/schemas/addProductDb'
       responses:
         '200':
           description: Producto creado con éxito.
@@ -100,7 +100,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProductInput'
+              $ref: '#/components/schemas/Product'
       responses:
         '200':
           description: Producto actualizado con éxito.
@@ -131,7 +131,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteResponse'
+                $ref: '#/components/schemas/Product'
         '500':
           description: Error interno del servidor.
 
@@ -148,11 +148,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductList'
+                $ref: '#/components/schemas/Product'
         '500':
           description: Error interno del servidor.
-
-
 
 
 

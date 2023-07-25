@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "test": "mocha test/user.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +39,7 @@
     "winston": "^3.9.0"
   },
   "devDependencies": {
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22"
   },
   "description": ""

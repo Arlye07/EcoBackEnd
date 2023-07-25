@@ -29,55 +29,58 @@ paths:
         "403":
           description: Forbiden
         "500":
-          description: Internal Server Error
+          description: Internal Server Error.
 
+  '/':
+    get:
+      summary: Crea un nuevo carrito.
+      tags:
+        - Carts
+      responses:
+        '201':
+          description: Nuevo carrito creado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        '500':
+          description: Error interno del servidor.
 
-
-
-'/':
-  get:
-    summary: Crea un nuevo carrito.
-    responses:
-      '201':
-        description: Nuevo carrito creado con éxito.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Cart'
-      '500':
-        description: Error interno del servidor.
-
-'/:cartId/:productId':
-  post:
-    summary: Agrega un producto a un carrito.
-    parameters:
-      - name: cartId
-        in: path
-        description: ID del carrito.
-        required: true
-        schema:
-          type: string
-      - name: productId
-        in: path
-        description: ID del producto.
-        required: true
-        schema:
-          type: string
-    responses:
-      '200':
-        description: Producto agregado al carrito con éxito.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Cart'
-      '401':
-        description: No tienes permiso para agregar este producto.
-      '500':
-        description: Error interno del servidor.
+  '/:cartId/:productId':
+    post:
+      summary: Agrega un producto a un carrito.
+      tags:
+        - Carts
+      parameters:
+        - name: cartId
+          in: path
+          description: ID del carrito.
+          required: true
+          schema:
+            type: string
+        - name: productId
+          in: path
+          description: ID del producto.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto agregado al carrito con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '401':
+          description: No tienes permiso para agregar este producto.
+        '500':
+          description: Error interno del servidor.
 
 '/:cid/products/:pid':
   delete:
     summary: Elimina un producto de un carrito.
+    tags:
+        - Carts
     parameters:
       - name: cid
         in: path
@@ -102,6 +105,8 @@ paths:
         description: Error interno del servidor.
   put:
     summary: Actualiza la cantidad de un producto en el carrito.
+    tags:
+        - Carts
     parameters:
       - name: cid
         in: path
@@ -138,6 +143,8 @@ paths:
 '/:cid':
   put:
     summary: Actualiza el carrito con un arreglo de productos.
+    tags:
+        - Carts
     parameters:
       - name: cid
         in: path
@@ -156,7 +163,7 @@ paths:
               productos:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Product'
+                  $ref: '#/components/schemas/updateProductsToCart'
     responses:
       '200':
         description: Carrito actualizado con éxito.
@@ -168,6 +175,8 @@ paths:
         description: Error interno del servidor.
   delete:
     summary: Elimina todos los productos del carrito.
+    tags:
+        - Carts
     parameters:
       - name: cid
         in: path
@@ -186,6 +195,8 @@ paths:
         description: Error interno del servidor.
   get:
     summary: Obtiene el carrito por su ID.
+    tags:
+        - Carts
     parameters:
       - name: cid
         in: path
@@ -203,25 +214,7 @@ paths:
       '500':
         description: Error interno del servidor.
 
-'/:cid/purchase':
-  get:
-    summary: Realiza la compra final del carrito.
-    parameters:
-      - name: cid
-        in: path
-        description: ID del carrito.
-        required: true
-        schema:
-          type: string
-    responses:
-      '200':
-        description: Compra realizada con éxito.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PurchaseData'
-      '500':
-        description: Error interno del servidor.
+
 
 
 
@@ -244,4 +237,42 @@ components:
               quantity:
                 type: number
                 description: Número de unidades del producto (por defecto es 1)
-                
+    requestBodies:
+    updateProductsToCart:
+      description: Body con la informacion necesaria para actualizar el arreglo de productos del carrito
+      properties:
+        productos:
+          type: array
+          description: Nuevo arreglo con los nuevos productos que se van agregar al carrito
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: Id del producto
+              quantity:
+                type: number
+                description: Numero de unidades del producto
+      example:
+        productos: [
+          {
+            product: donuts,
+            quantity: 1
+          },
+          {
+            product: pan,
+            quantity: 4
+          },
+          {
+            product: criollos,
+            quantity: 2
+          }
+        ]
+    updateQuantityProduct:
+      description: Informacion necesaria para actualizar la C/U de un producto
+      properties:
+        quantity:
+          type: number
+          description: actualizar nueva cantidad de unidades 
+      example:
+        quantity: 8
