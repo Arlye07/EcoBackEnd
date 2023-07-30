@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "test": "mocha test/user.test.js"
+    "test": "mocha test/supertest.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -38,11 +38,10 @@
     "uuid": "^9.0.0",
     "winston": "^3.9.0"
   },
+  "description": "",
   "devDependencies": {
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
-    "nodemon": "^2.0.22",
     "supertest": "^6.3.3"
-  },
-  "description": ""
+  }
 }

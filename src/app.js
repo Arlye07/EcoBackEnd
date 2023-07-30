@@ -3,6 +3,7 @@ const compression = require("express-compression")
 const cookieParser = require('cookie-parser')
 const port = 8080;
 const app = express();
+const httpServer = require('http').createServer(app)
 const {Server} = require('socket.io')
 const mongoConnect = require('../db/index')
 const session = require('express-session')
@@ -14,6 +15,7 @@ const logger = require('./config/logger.config')
 const router = require('./routes/index')
 const swaggerUiExpress = require('swagger-ui-express')
 const swaggerJSDoc = require('swagger-jsdoc')
+
 
 
 app.use((req, res, next) => {
@@ -75,8 +77,8 @@ app.set('view engine','handlebars')
 mongoConnect ()
 router(app)
 
-
-const httpServer = app.listen(port, async() => { 
+//Server
+httpServer.listen(port, async() => { 
   console.log(`Server listening on ${port}`);
 });
 const io = new Server(httpServer)

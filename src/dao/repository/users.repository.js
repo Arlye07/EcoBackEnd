@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const Users = require('../../models/users.models')
 const Cart = require('../../models/carts.models')
-const { admin_email, admin_password } = require('../../config/superAdmin')
+const { admin_email, admin_password } = require('../../config/superAdmin.config')
 
 class UserRepository{
     async createUser(userInfo){
