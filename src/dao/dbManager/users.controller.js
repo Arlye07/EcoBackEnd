@@ -6,6 +6,7 @@ const UserDTO = require('../../dao/DTO/users.dto');
 const multerUpload =require('../../config/multer.config');
 const moment = require('moment');
 const mailerDao = require('../../dao/mail.dao');
+const adminAccess = require('../../middlewares/adminAcces.middleware')
 const router = Router();
 
 router.get("/", async (req, res, next) => {
