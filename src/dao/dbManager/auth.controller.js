@@ -93,15 +93,10 @@ router.post(
         });
       }
       // Establecer una session con los datos del usuario autenticado
-      req.session.user = {
-        _id: req.user._id,
-        first_name: req.user.first_name,
-        last_name: req.user.last_name,
-        email: req.user.email,
-        password: req.user.password,
-        role: req.user.role,
-        cartId: req.user.cartId,
-      };
+      req.session.user = req.Users
+      const date = new Date()
+      await Users.findByIdAndUpdate(req.session.user._id,{last_connection:date})
+      req.session.save()
       res.status(200).json({ status: "succes", message: "sesion establecida" });
     } catch (error) {
       console.log(error.message);
@@ -120,6 +115,8 @@ router.get(
   "/githubcallback",
   passport.authenticate("github", { failureRedirect: "/faillogin" }),
   async (req, res) => {
+    const date = new Date()
+      await Users.findByIdAndUpdate(req.user._id,{last_connection:date})
     req.session.user = req.user;
     res.redirect("/api/dbProducts");
   }
@@ -139,7 +136,9 @@ router.get(
 //   }
 // )
 
-router.get("/logout", (req, res) => {
+router.get("/logout", async (req, res) => {
+  const date = new Date()
+      await Users.findByIdAndUpdate(req.user._id,{last_connection:date})
   req.session.destroy((error) => {
     if (error) return res.json({ error });
     res.redirect("/api/login");

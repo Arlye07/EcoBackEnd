@@ -2,6 +2,7 @@ const express = require("express");
 const compression = require("express-compression")
 const cookieParser = require('cookie-parser')
 const port = 8080;
+//const { port } = require('./config/app.config')
 const app = express();
 const httpServer = require('http').createServer(app)
 const {Server} = require('socket.io')
