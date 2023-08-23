@@ -1,65 +1,98 @@
 body{
-    background-color: rgb(216, 119, 216);
-      margin: 0;
-      padding: 16px;
-      font-family:Arial, Helvetica, sans-serif;
-    }
-    h2{
-      text-align: center;
-      margin: 10px;
-      padding: 16px;
-    }
-    h3{
-      text-align: center;
-      margin: 10px;
-      padding: 16px;
-    }
-    div.lista{
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1rem;
-    }
-    .item{
-      background-color: rgb(220, 125, 241);
-      border-radius: 1rem;
-      text-align: center;
-      padding: 1rem;
-    }
-    
-    div.formsContainer{
-      background-color: blueviolet;
-      display: flex;
-      flex-direction: row;
-      margin: 2rem;
-      padding: 1rem;
-    }
-    .formsContaine,form{
-      background-color: rgb(0, 55, 255);
-      margin: 1rem;
-      padding: 1rem;
-      width: 30rem;
-      text-align: center;
-    }
-    form.deleteForm{
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-    }
-    .deleteForm button{
-      width: 10rem;
-    }
-    input{
-      padding: .5rem;
-      margin: .5rem;
-      border: none;
-      border-radius: 1rem;
-    }
-    button{
-      padding: .8rem;
-      border-radius: 1rem;
-      border: none;
-    }
-    button:hover{
-      cursor: pointer;
-    }
+  background-color: rgb(216, 119, 216);
+    margin: 0;
+    padding: 16px;
+    height: 100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  h2{
+    background-color: rgba(223, 172, 229, 0.306);
+    text-align: center;
+    margin: 10px;
+    padding: 16px;
+  }
+  h3{
+    text-align: center;
+    margin: 10px;
+    padding: 16px;
+  }
+  li{
+    text-align: center;
+  }
+  a{
+    text-align: center;
+    border: none;
+    margin: 5px;
+    padding: 4px;
+    border-radius: 20%;
+    background-color: aliceblue;
+  }
+  a:hover{
+cursor: pointer;
+border: none;
+background-color: rgb(220, 20, 130);
+}
+div.a{
+text-align: center;
+}
+  div.lista{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  .item{
+    background-color: rgb(220, 125, 241);
+    border-radius: 1rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  div.formsContainer{
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: row;
+    margin: 2rem;
+    padding: 1rem;
+  }
+  .formsContaine,form{
+    background-color: rgb(255, 0, 234);
+    margin: 1rem;
+    padding: 1rem;
+    width:auto;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  form.deleteForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .deleteForm button{
+    width: 10rem;
+  }
+  input{
+    padding: .5rem;
+    margin: .5rem;
+    border: none;
+    border-radius: 1rem;
+  }
+  input:hover{
+    cursor: pointer;
+  }
+  button{
+    padding: .8rem;
+    border-radius: 1rem;
+    border: none;
+  }
+  button:hover{
+    cursor: pointer;
+    background-color: rgb(220, 20, 130);
+  }
