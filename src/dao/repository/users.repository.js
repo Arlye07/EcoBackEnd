@@ -25,6 +25,7 @@ class UserRepository {
       const cart = new Cart();
       await cart.save();
       const cartId = cart._id;
+      
 
       //Agregar la clave role a la informacion del usuario
       const newUserInfo = {
