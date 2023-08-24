@@ -93,13 +93,15 @@ router.post(
         });
       }
       // Establecer una session con los datos del usuario autenticado
-      req.session.user = req.Users
+      //req.session.user = req.users
+      //console.log(req.user);
       const date = new Date()
-      await Users.findByIdAndUpdate(req.session.user._id,{last_connection:date})
+      //console.log(req.passport);
+      await Users.findByIdAndUpdate(req.user._id,{last_connection:date})
       req.session.save()
       res.status(200).json({ status: "succes", message: "sesion establecida" });
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
       res.status(500).json({ status: "error", error: "Internal Server Error" });
     }
   }
