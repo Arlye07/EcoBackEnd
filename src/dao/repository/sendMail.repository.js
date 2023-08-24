@@ -20,4 +20,5 @@ class MailerRepository {
   }
 }
 
+
 module.exports = MailerRepository;
