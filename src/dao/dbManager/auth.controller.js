@@ -103,6 +103,7 @@ router.post(
     } catch (error) {
       console.log(error);
       res.status(500).json({ status: "error", error: "Internal Server Error" });
+      //res.redirect("/api/dbProducts");
     }
   }
 );
